@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -436,6 +436,29 @@
       background: #fff;
     }
 
+    .concept-card {
+      border: 1px solid rgba(204, 0, 51, 0.18);
+      border-left: 5px solid var(--scarlet);
+      border-radius: 8px;
+      padding: 16px 18px;
+      margin: 0 0 18px;
+      background: linear-gradient(180deg, #fff, var(--scarlet-soft));
+    }
+
+    .concept-card h3 {
+      margin: 0 0 8px;
+      color: var(--charcoal);
+      font-size: 16px;
+      line-height: 1.25;
+    }
+
+    .concept-card p {
+      margin: 8px 0 0;
+      color: #4f5963;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
     .question-meta {
       display: flex;
       flex-wrap: wrap;
@@ -692,22 +715,70 @@
     const POINTS = { Easy: 5, Medium: 10, Hard: 15, Challenge: 20 };
 
     const BADGES = [
-      { id: "number-systems", name: "Number Systems Badge", icon: "123" },
-      { id: "operations", name: "Operations Badge", icon: "+" },
-      { id: "fraction-forge", name: "Fraction Forge Badge", icon: "\u00BD" },
-      { id: "exponent", name: "Exponent Badge", icon: "x\u00B2" },
-      { id: "notation-foundations", name: "Notation Foundations Badge", icon: "\u221A" },
-      { id: "summation", name: "Summation Badge", icon: "\u03A3" },
-      { id: "polynomial-builder", name: "Polynomial Builder Badge", icon: "x\u00B3" },
-      { id: "algebra-mastery", name: "Algebra Mastery Badge", icon: "x=" },
-      { id: "function-machine", name: "Function Machine Badge", icon: "f(x)" },
-      { id: "graph-navigator", name: "Graph Navigator Badge", icon: "\u2295" },
-      { id: "linear-functions", name: "Linear Functions Badge", icon: "m" },
-      { id: "quadratic", name: "Quadratic Badge", icon: "U" },
-      { id: "curve-analyst", name: "Curve Analyst Badge", icon: "eË£" },
-      { id: "systems-solver", name: "Systems Solver Badge", icon: "\u2229" },
-      { id: "finance-applications", name: "Finance Applications Badge", icon: "$" },
-      { id: "business-math-analyst", name: "Business Math Analyst Badge", icon: "80+" }
+      { id: "number-systems", name: "Number Systems Badge", icon: "123", concepts: [
+        "This badge reviews the real number system. Natural numbers are the counting numbers, integers include positives, negatives, and zero, rational numbers can be written as a ratio of integers, and irrational numbers such as \u221A2 cannot be written as exact fractions.",
+        "You will also compare values on a number line and use absolute value as distance from zero. These ideas support later business math work with gains, losses, account balances, and signed quantities."
+      ] },
+      { id: "operations", name: "Operations Badge", icon: "+", concepts: [
+        "This badge focuses on arithmetic operations with signed numbers. Subtraction can be rewritten as adding the opposite, and the law of signs tells you whether products and quotients are positive or negative.",
+        "You will also use real-number properties such as commutative, identity, inverse, and distributive properties. Division by zero is undefined because no number times zero can produce a nonzero numerator."
+      ] },
+      { id: "fraction-forge", name: "Fraction Forge Badge", icon: "\u00BD", concepts: [
+        "Fractions represent parts of a whole and ratios compare two quantities. Simplifying a fraction means dividing the numerator and denominator by the same common factor without changing the value.",
+        "Reciprocals are multiplicative inverses: a nonzero number times its reciprocal equals 1. These skills matter for rates, proportions, shares of a budget, and business ratios."
+      ] },
+      { id: "exponent", name: "Exponent Badge", icon: "x\u00B2", concepts: [
+        "Exponents describe repeated multiplication. A zero exponent on a nonzero base equals 1, a negative exponent creates a reciprocal, and powers of 10 are especially useful for decimals and large business values.",
+        "You will practice exponent rules such as product of powers and power of a power. These rules help simplify formulas before substituting values."
+      ] },
+      { id: "notation-foundations", name: "Notation Foundations Badge", icon: "\u221A", concepts: [
+        "This badge reviews notation used throughout the workshop: order of operations, absolute value, factorial notation, scientific notation, and subscripts. Order of operations keeps calculations consistent: grouping, exponents, multiplication/division, then addition/subtraction.",
+        "Subscripts label specific values, such as p1 and x1 for the first product price and quantity. Scientific notation makes very large and very small quantities easier to read and compute."
+      ] },
+      { id: "summation", name: "Summation Badge", icon: "\u03A3", concepts: [
+        "Summation notation uses the sigma symbol to show repeated addition. The index tells you which values to plug in, and the lower and upper limits tell you where to start and stop.",
+        "In business settings, summation appears when adding sales across regions, costs across categories, or values across time periods."
+      ] },
+      { id: "polynomial-builder", name: "Polynomial Builder Badge", icon: "x\u00B3", concepts: [
+        "A monomial is one algebraic term, while a polynomial is a sum of monomial terms with nonnegative whole-number exponents. The degree of a polynomial is the highest exponent that determines much of its behavior.",
+        "You will combine like terms, multiply binomials using FOIL, and factor expressions. Factoring reverses multiplication and is often used to solve equations."
+      ] },
+      { id: "algebra-mastery", name: "Algebra Mastery Badge", icon: "x=", concepts: [
+        "Algebra is about preserving equality while isolating an unknown. Inverse operations let you undo addition, subtraction, multiplication, division, powers, and roots in a logical order.",
+        "These techniques support business equations such as cost, revenue, and break-even models, where solving for x often means finding a quantity, price, or time."
+      ] },
+      { id: "function-machine", name: "Function Machine Badge", icon: "f(x)", concepts: [
+        "A function assigns each input exactly one output. In f(x), x is usually the independent variable and f(x) is the dependent output.",
+        "Business functions can use one variable, such as R(x)=px, or multiple variables, such as R=p1x1+p2x2. Function notation helps organize revenue, cost, demand, and profit relationships."
+      ] },
+      { id: "graph-navigator", name: "Graph Navigator Badge", icon: "\u2295", concepts: [
+        "Graphing connects algebra to pictures. Ordered pairs are written as (x, y), the origin is (0, 0), and the signs of x and y determine the quadrant.",
+        "Tables of inputs and outputs can be graphed as points. A graph represents a function when each input has exactly one output."
+      ] },
+      { id: "linear-functions", name: "Linear Functions Badge", icon: "m", concepts: [
+        "A linear function has a constant rate of change. In slope-intercept form y=mx+b, m is the slope and b is the y-intercept.",
+        "Slope tells how much the output changes for a one-unit increase in the input. In business, it can represent a unit cost, unit revenue, price change, or contribution margin."
+      ] },
+      { id: "quadratic", name: "Quadratic Badge", icon: "U", concepts: [
+        "Quadratic functions have degree 2 and graph as parabolas. The direction the parabola opens depends on the leading coefficient, and the vertex represents a maximum or minimum point.",
+        "Solving a quadratic means finding input values where the output is zero. Factoring, square roots, and vertex form are common tools for interpreting quadratic models."
+      ] },
+      { id: "curve-analyst", name: "Curve Analyst Badge", icon: "e^x", concepts: [
+        "This badge compares nonlinear function families, including higher-degree polynomial functions and exponential functions. Polynomial degree affects the curve shape and long-run behavior.",
+        "Exponential models repeatedly multiply by a growth or decay factor. A base greater than 1 shows growth, while a base between 0 and 1 shows decay."
+      ] },
+      { id: "systems-solver", name: "Systems Solver Badge", icon: "\u2229", concepts: [
+        "A system of equations asks for values that satisfy more than one equation at the same time. Graphically, the solution is where the graphs intersect.",
+        "Substitution and elimination are two core solution methods. Systems model business situations such as supply and demand equilibrium, break-even points, and nonlinear intersections."
+      ] },
+      { id: "finance-applications", name: "Finance Applications Badge", icon: "$", concepts: [
+        "This badge applies algebra and functions to finance. Simple interest uses I=Prt, while compound interest uses A=P(1+r)^t because interest is earned on prior interest.",
+        "Present value discounts future money back to today. You will also use cost, revenue, profit, break-even, supply, and demand models to interpret business decisions."
+      ] },
+      { id: "business-math-analyst", name: "Business Math Analyst Badge", icon: "80+", concepts: [
+        "The final badge combines the full workshop: algebraic techniques, function notation, graph interpretation, systems of equations, and finance applications.",
+        "You will interpret business scenarios by choosing the right model, calculating accurately, and explaining what the result means for revenue, cost, profit, growth, or decision-making."
+      ] }
     ];
 
     function escapeHtml(value) {
@@ -1373,6 +1444,11 @@
       }
     }
 
+    function conceptCardTemplate(badge) {
+      const conceptCopy = (badge.concepts || []).map(text => `<p>${escapeHtml(text)}</p>`).join("");
+      return `<div class="concept-card"><h3>Concepts in this badge</h3>${conceptCopy}</div>`;
+    }
+
     function questionTemplate(index, q) {
       const badge = BADGES[index];
       const points = state.points[badge.id] || 0;
@@ -1392,6 +1468,7 @@
           <div class="progress-label"><span>Current badge progress</span><span>${fmt(points)} / ${PASS_POINTS}</span></div>
           <div class="progress" aria-label="Current badge progress"><span style="width:${pct}%"></span></div>
         </div>
+        ${conceptCardTemplate(badge)}
         <div class="question-box">
           <div class="question-meta">
             <span class="pill">${escapeHtml(q.difficulty)}</span>
@@ -1588,6 +1665,7 @@
             <h2>${escapeHtml(badge.name)} Report</h2>
           </div>
         </div>
+        ${conceptCardTemplate(badge)}
         <div class="actions">
           ${nextButton}
           <button class="secondary" id="retryBadge" type="button">Retry Badge</button>
@@ -1647,7 +1725,7 @@
   <!--
     README:
     Canvas deployment:
-    1. Save this standalone file as business_math_quest_randomized_points.html.
+    1. Save this standalone file as business_math_quest_randomized_points_v2.html.
     2. Upload it to Canvas Files and publish it.
     3. Add a Canvas Page and embed the published file URL in an iframe, for example:
        <iframe src="PASTE-CANVAS-FILE-URL-HERE" width="100%" height="900" style="border:0;" allowfullscreen></iframe>
