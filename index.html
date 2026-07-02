@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Road to Success: Business Math Quest | Scarlet Arena</title>
+  <title>Road to Success: Business Math Quest</title>
   <style>
     :root {
       --scarlet: #cc0033;
@@ -409,15 +409,6 @@
       letter-spacing: 0;
     }
 
-    .arena-topline {
-      margin-bottom: 10px;
-      align-items: center;
-    }
-
-    .arena-topline h2 {
-      font-size: clamp(20px, 2.4vw, 30px);
-    }
-
     .badge-chip {
       display: inline-flex;
       align-items: center;
@@ -581,401 +572,6 @@
     .feedback.bad { color: var(--bad); }
     .feedback.neutral { color: var(--warn); }
 
-    .arena-shell {
-      display: grid;
-      gap: 10px;
-    }
-
-    .arena-scene {
-      position: relative;
-      height: clamp(430px, calc(100vh - 280px), 520px);
-      min-height: 0;
-      overflow: hidden;
-      border: 1px solid var(--gray-100);
-      border-radius: 8px;
-      background:
-        linear-gradient(180deg, #f7f8fb 0 42%, #ffffff 42% 100%);
-      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.85);
-    }
-
-    .arena-wall {
-      position: absolute;
-      inset: 0 0 40%;
-      background:
-        linear-gradient(180deg, #f8f9fb 0%, #edf0f5 100%);
-      border-bottom: 7px solid var(--scarlet);
-    }
-
-    .arena-wall::after {
-      content: "";
-      position: absolute;
-      left: 0;
-      right: 0;
-      bottom: -15px;
-      height: 8px;
-      background: rgba(229, 25, 55, 0.18);
-    }
-
-    .arena-watermark {
-      position: absolute;
-      right: 6%;
-      top: -36px;
-      font-family: Georgia, serif;
-      font-size: clamp(160px, 21vw, 320px);
-      line-height: 1;
-      font-weight: 900;
-      color: rgba(204, 0, 51, 0.055);
-      pointer-events: none;
-    }
-
-    .arena-pennants {
-      position: absolute;
-      left: 22px;
-      right: 22px;
-      top: 18px;
-      display: flex;
-      justify-content: space-between;
-      pointer-events: none;
-    }
-
-    .arena-pennants span {
-      width: 0;
-      height: 0;
-      border-left: 16px solid transparent;
-      border-right: 16px solid transparent;
-      border-top: 42px solid rgba(204, 0, 51, 0.72);
-      filter: drop-shadow(0 4px 4px rgba(47, 51, 56, 0.14));
-    }
-
-    .arena-pennants span:nth-child(even) {
-      border-top-color: rgba(214, 169, 58, 0.82);
-    }
-
-    .jumbotron {
-      position: relative;
-      z-index: 2;
-      width: min(640px, calc(100% - 36px));
-      margin: 14px auto 0;
-      padding: 9px 12px 10px;
-      border: 4px solid #2a2d3a;
-      border-radius: 8px;
-      background:
-        linear-gradient(180deg, #252832, #171920);
-      box-shadow: 0 18px 34px rgba(25, 27, 34, 0.22);
-      color: #fff;
-      font-family: "Courier New", Consolas, monospace;
-    }
-
-    .score-grid {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 8px;
-      align-items: stretch;
-    }
-
-    .score-cell,
-    .score-big {
-      border: 1px solid rgba(255, 255, 255, 0.16);
-      border-radius: 6px;
-      padding: 7px 8px;
-      background: rgba(255, 255, 255, 0.055);
-      min-width: 0;
-    }
-
-    .score-cell span,
-    .score-big span {
-      display: block;
-      color: #aeb6c2;
-      font-size: 10px;
-      letter-spacing: 0;
-      text-transform: uppercase;
-      white-space: nowrap;
-    }
-
-    .score-cell strong {
-      display: block;
-      margin-top: 2px;
-      font-size: 15px;
-      color: #fff;
-      overflow-wrap: anywhere;
-    }
-
-    .score-big strong {
-      display: block;
-      margin-top: 2px;
-      color: #ffbf47;
-      font-size: clamp(25px, 3.2vw, 36px);
-      line-height: 0.95;
-      text-shadow: 0 0 12px rgba(255, 191, 71, 0.48);
-    }
-
-    .score-subline {
-      margin-top: 7px;
-      color: #d8dde6;
-      font-size: 12px;
-      font-weight: 800;
-      text-align: center;
-      text-transform: uppercase;
-    }
-
-    .score-progress {
-      height: 8px;
-      margin-top: 7px;
-      border-radius: 999px;
-      overflow: hidden;
-      background: #3a3d48;
-    }
-
-    .score-progress span {
-      display: block;
-      height: 100%;
-      border-radius: inherit;
-      background: linear-gradient(90deg, var(--scarlet), var(--scarlet-2));
-    }
-
-    .score-message {
-      margin-top: 7px;
-      min-height: 18px;
-      color: #ffbf47;
-      font-size: 12px;
-      font-weight: 800;
-      text-transform: uppercase;
-    }
-
-    .score-message.good { color: #61d394; }
-    .score-message.bad { color: #ff756f; }
-    .score-message.neutral { color: #ffbf47; }
-
-    .question-banner {
-      position: absolute;
-      z-index: 4;
-      left: 50%;
-      top: 150px;
-      transform: translateX(-50%);
-      width: min(900px, calc(100% - 40px));
-      padding: 10px 14px;
-      border: 2px solid rgba(204, 0, 51, 0.55);
-      border-left: 8px solid var(--scarlet);
-      border-radius: 8px;
-      background: rgba(255, 255, 255, 0.96);
-      box-shadow: 0 12px 26px rgba(47, 51, 56, 0.11);
-      font-size: clamp(15px, 1.7vw, 20px);
-      line-height: 1.28;
-      font-weight: 800;
-    }
-
-    .arena-floor-zone {
-      position: absolute;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      height: 290px;
-      perspective: 800px;
-    }
-
-    .court-floor {
-      position: absolute;
-      left: -8%;
-      right: -8%;
-      bottom: -82px;
-      height: 295px;
-      transform: rotateX(58deg);
-      transform-origin: bottom center;
-      border: 2px solid rgba(204, 0, 51, 0.22);
-      border-radius: 42px 42px 12px 12px;
-      background:
-        linear-gradient(90deg, transparent 49%, rgba(204, 0, 51, 0.24) 49% 51%, transparent 51%),
-        radial-gradient(ellipse at center, transparent 0 34%, rgba(204, 0, 51, 0.24) 34.5% 35.5%, transparent 36%),
-        repeating-linear-gradient(90deg, #f3cf8f 0 34px, #e7bd76 34px 68px);
-      box-shadow: inset 0 24px 48px rgba(255, 255, 255, 0.38);
-    }
-
-    .answer-podium,
-    .answer-terminal {
-      position: absolute;
-      z-index: 5;
-      bottom: 28px;
-      transform: translateX(-50%);
-    }
-
-    .answer-podium {
-      left: var(--podium-left);
-      width: min(170px, 22%);
-      min-height: 126px;
-      padding: 0;
-      background: transparent;
-      border-radius: 8px;
-      text-align: center;
-      box-shadow: none;
-      transition: filter 0.18s ease, transform 0.18s ease;
-    }
-
-    .answer-podium:hover:not(:disabled) {
-      box-shadow: none;
-      transform: translateX(-50%) translateY(-3px);
-    }
-
-    .answer-podium.focused {
-      filter: drop-shadow(0 0 18px rgba(204, 0, 51, 0.55));
-    }
-
-    .answer-podium.correct .podium-sign {
-      border-color: rgba(22, 121, 76, 0.55);
-      background: #effaf4;
-    }
-
-    .answer-podium.correct .podium-base {
-      background: linear-gradient(180deg, #259b68, #16794c);
-    }
-
-    .answer-podium.wrong .podium-sign {
-      border-color: rgba(180, 35, 24, 0.55);
-      background: #fff1f0;
-    }
-
-    .answer-podium.wrong .podium-base {
-      background: linear-gradient(180deg, #d34235, #b42318);
-    }
-
-    .podium-sign {
-      min-height: 64px;
-      display: grid;
-      align-items: center;
-      padding: 8px;
-      border: 2px solid var(--gray-200);
-      border-radius: 8px;
-      background: rgba(255, 255, 255, 0.97);
-      color: var(--charcoal);
-      font-size: clamp(12px, 1.2vw, 15px);
-      line-height: 1.18;
-      font-weight: 800;
-      overflow-wrap: anywhere;
-    }
-
-    .podium-base {
-      width: 74%;
-      min-height: 42px;
-      margin: 6px auto 0;
-      display: grid;
-      place-items: center;
-      border-radius: 8px 8px 16px 16px;
-      background: linear-gradient(180deg, var(--scarlet-2), var(--scarlet));
-      color: #fff;
-      font-size: 22px;
-      font-weight: 900;
-      box-shadow: 0 12px 22px rgba(47, 51, 56, 0.18);
-    }
-
-    .arena-radio {
-      position: absolute;
-      opacity: 0;
-      pointer-events: none;
-    }
-
-    .answer-terminal {
-      left: 62%;
-      width: min(620px, 62%);
-      min-height: 126px;
-      padding: 12px;
-      border: 2px solid rgba(204, 0, 51, 0.32);
-      border-radius: 8px;
-      background: rgba(255, 255, 255, 0.97);
-      box-shadow: 0 18px 38px rgba(47, 51, 56, 0.16);
-    }
-
-    .answer-terminal.correct {
-      border-color: rgba(22, 121, 76, 0.7);
-      background: #effaf4;
-    }
-
-    .answer-terminal.wrong {
-      border-color: rgba(180, 35, 24, 0.7);
-      background: #fff1f0;
-    }
-
-    .terminal-title {
-      margin: 0 0 8px;
-      color: var(--scarlet);
-      font-weight: 900;
-      text-transform: uppercase;
-      font-size: 13px;
-    }
-
-    .answer-terminal .short-answer {
-      max-width: none;
-      margin: 0;
-      min-height: 44px;
-      border-width: 2px;
-      background: #fff;
-      font-size: 18px;
-    }
-
-    .knight-avatar {
-      position: absolute;
-      z-index: 7;
-      bottom: 2px;
-      left: 16%;
-      width: 66px;
-      height: 96px;
-      transform: translateX(-50%);
-      transition: left 0.4s ease;
-      pointer-events: none;
-    }
-
-    .knight-avatar svg {
-      width: 66px;
-      height: 96px;
-      display: block;
-      overflow: visible;
-    }
-
-    .knight-avatar.walking svg {
-      animation: walkbob 0.22s ease-in-out infinite alternate;
-    }
-
-    @keyframes walkbob {
-      from { transform: translateY(0) rotate(-2deg); }
-      to { transform: translateY(-5px) rotate(2deg); }
-    }
-
-    .arena-controls {
-      display: grid;
-      gap: 7px;
-      padding: 10px;
-      border: 1px solid var(--gray-100);
-      border-radius: 8px;
-      background: #fff;
-    }
-
-    .arena-control-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      align-items: center;
-    }
-
-    .arena-control-row .icon-button {
-      min-width: 48px;
-      min-height: 38px;
-      padding: 0 14px;
-      border: 1px solid var(--gray-100);
-      background: var(--gray-25);
-      color: var(--scarlet);
-      font-size: 20px;
-    }
-
-    .arena-hint {
-      width: auto;
-      margin: 0;
-      line-height: 1.35;
-      font-size: 12px;
-    }
-
-    .arena-controls .feedback {
-      min-height: 20px;
-      margin-top: 0;
-    }
-
     .report-wrap {
       overflow-x: auto;
       border: 1px solid var(--gray-100);
@@ -1113,20 +709,6 @@
       .metric-row { grid-template-columns: 1fr; }
       .topline { display: block; }
       .badge-chip { margin-top: 12px; }
-      .arena-topline {
-        display: flex;
-        align-items: center;
-      }
-      .arena-topline .badge-chip {
-        margin-top: 0;
-      }
-      .arena-scene { height: clamp(430px, calc(100vh - 245px), 500px); }
-      .score-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-      .question-banner { top: 145px; }
-      .arena-floor-zone { height: 285px; }
-      .answer-podium {
-        width: min(150px, 24%);
-      }
     }
 
     @media (max-width: 560px) {
@@ -1136,58 +718,6 @@
       .question-prompt { font-size: 18px; }
       .hero-actions, .actions, .intro-actions { display: grid; }
       .hero-actions button, .actions button, .intro-actions button { width: 100%; }
-      .arena-scene { height: clamp(500px, calc(100vh - 245px), 560px); }
-      .jumbotron { width: calc(100% - 20px); padding: 8px; border-width: 3px; }
-      .score-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 5px; }
-      .score-cell,
-      .score-big { padding: 5px; }
-      .score-cell span,
-      .score-big span { font-size: 8px; }
-      .score-cell strong { font-size: 12px; }
-      .score-big strong { font-size: 22px; }
-      .score-subline { font-size: 10px; margin-top: 5px; }
-      .score-message { font-size: 10px; min-height: 15px; margin-top: 5px; }
-      .question-banner {
-        top: 165px;
-        width: calc(100% - 20px);
-        font-size: 14px;
-        padding: 8px 10px;
-      }
-      .arena-floor-zone { height: 335px; }
-      .answer-podium {
-        width: 42%;
-        min-height: 112px;
-      }
-      .podium-sign {
-        min-height: 58px;
-        font-size: 12px;
-      }
-      .podium-base {
-        min-height: 38px;
-        font-size: 20px;
-      }
-      .answer-podium:nth-of-type(1) { --podium-left: 25% !important; bottom: 154px; }
-      .answer-podium:nth-of-type(2) { --podium-left: 75% !important; bottom: 154px; }
-      .answer-podium:nth-of-type(3) { --podium-left: 25% !important; bottom: 28px; }
-      .answer-podium:nth-of-type(4) { --podium-left: 75% !important; bottom: 28px; }
-      .answer-terminal {
-        left: 64%;
-        width: 68%;
-        min-height: 116px;
-      }
-      .knight-avatar {
-        width: 64px;
-        height: 92px;
-      }
-      .knight-avatar svg {
-        width: 64px;
-        height: 92px;
-      }
-      .arena-control-row { display: grid; grid-template-columns: 1fr 1fr; }
-      .arena-control-row .primary,
-      .arena-control-row .secondary {
-        grid-column: span 2;
-      }
     }
 
     @media print {
@@ -1266,7 +796,7 @@
 
       <section class="readme" id="readme">
         <h2>Canvas Deployment README</h2>
-        <p>Save this file as <strong>business_math_quest_VR_v7.html</strong>, upload it to Canvas Files, publish it, and embed it in a Canvas Page with an iframe that points to the uploaded file URL.</p>
+        <p>Save this file as <strong>business_math_quest_randomized_points_v4.html</strong>, upload it to Canvas Files, publish it, and embed it in a Canvas Page with an iframe that points to the uploaded file URL.</p>
         <p>This game is designed as a practice/remediation tool. It saves progress in the learner's browser localStorage and does not automatically write scores to the Canvas Gradebook.</p>
         <p>For official grading, use a Canvas quiz or assignment, or implement a formal LTI/API integration separately.</p>
       </section>
@@ -1973,7 +1503,6 @@
     let state = null;
     let selectedBadge = 0;
     let feedbackTimer = null;
-    let arenaKeyHandler = null;
 
     function freshState() {
       return {
@@ -2091,10 +1620,6 @@
     }
 
     function renderGame() {
-      if (arenaKeyHandler) {
-        document.removeEventListener("keydown", arenaKeyHandler);
-        arenaKeyHandler = null;
-      }
       const badge = BADGES[selectedBadge];
       const panel = document.getElementById("gamePanel");
       if (state.completed[badge.id]) {
@@ -2145,97 +1670,38 @@
       });
     }
 
-    function knightSvg() {
-      return `
-        <svg viewBox="0 0 90 130" width="78" height="112" aria-hidden="true">
-          <ellipse cx="45" cy="124" rx="26" ry="5" fill="rgba(0,0,0,.18)"/>
-          <path d="M45 7 C58 2 67 10 62 21 L50 16 Z" fill="#cc0033"/>
-          <circle cx="45" cy="27" r="17" fill="#d6d9df" stroke="#9aa1ad" stroke-width="2"/>
-          <rect x="31" y="23" width="28" height="9" rx="4" fill="#2a2d3a"/>
-          <rect x="27" y="45" width="36" height="38" rx="10" fill="#cc0033"/>
-          <circle cx="45" cy="63" r="11" fill="#fff"/>
-          <text x="45" y="69" text-anchor="middle" font-family="Georgia,serif" font-weight="bold" font-size="16" fill="#cc0033">R</text>
-          <rect x="17" y="47" width="10" height="26" rx="5" fill="#cc0033"/>
-          <rect x="63" y="47" width="10" height="26" rx="5" fill="#cc0033"/>
-          <circle cx="22" cy="76" r="5" fill="#d6d9df"/>
-          <circle cx="68" cy="76" r="5" fill="#d6d9df"/>
-          <rect x="31" y="83" width="11" height="29" rx="5" fill="#2a2d3a"/>
-          <rect x="48" y="83" width="11" height="29" rx="5" fill="#2a2d3a"/>
-          <rect x="28" y="110" width="17" height="8" rx="4" fill="#191b22"/>
-          <rect x="45" y="110" width="17" height="8" rx="4" fill="#191b22"/>
-        </svg>`;
-    }
-
-    function podiumPositions(count) {
-      if (count === 4) return [14, 38, 62, 86];
-      if (count === 3) return [20, 50, 80];
-      if (count === 2) return [30, 70];
-      if (count <= 1) return [50];
-      return Array.from({ length: count }, (_, i) => 14 + (72 / (count - 1)) * i);
-    }
-
     function questionTemplate(index, q) {
       const badge = BADGES[index];
       const points = state.points[badge.id] || 0;
       const pct = Math.min(100, (points / PASS_POINTS) * 100);
-      const play = (state.history[badge.id] || []).length + 1;
-      const letters = ["A", "B", "C", "D"];
-      const shuffledOptions = q.type === "multiple-choice" ? shuffle(q.options) : [];
-      const positions = podiumPositions(shuffledOptions.length);
-      const podiums = shuffledOptions.map((option, optionIndex) => `
-        <button class="answer-podium ${optionIndex === 0 ? "focused" : ""}" type="button" style="--podium-left:${positions[optionIndex]}%;" data-option-index="${optionIndex}" data-avatar-left="${positions[optionIndex]}" data-answer="${escapeHtml(option)}">
-          <span class="podium-sign">${escapeHtml(option)}</span>
-          <span class="podium-base">${letters[optionIndex] || optionIndex + 1}</span>
-        </button>`).join("");
-      const answerZone = q.type === "multiple-choice"
-        ? podiums
-        : `<div class="answer-terminal" id="answerTerminal">
-            <p class="terminal-title">Answer terminal - type your answer below</p>
-            <input class="short-answer" id="shortAnswer" type="text" autocomplete="off" inputmode="text" aria-label="Short answer">
-          </div>`;
-      const avatarLeft = q.type === "multiple-choice" ? (positions[0] || 50) : 16;
+      const control = q.type === "multiple-choice"
+        ? `<div class="options">${shuffle(q.options).map(option => `<label class="option"><input type="radio" name="answer" value="${escapeHtml(option)}"><span>${escapeHtml(option)}</span></label>`).join("")}</div>`
+        : `<input class="short-answer" id="shortAnswer" type="text" autocomplete="off" inputmode="text" aria-label="Short answer">`;
       return `
-        <div class="topline arena-topline">
+        <div class="topline">
           <div>
             <span class="badge-chip">Checkpoint ${index + 1} of ${BADGES.length}</span>
             <h2>${escapeHtml(badge.name)}</h2>
           </div>
           <span class="badge-chip">${fmt(points)} / ${PASS_POINTS} points</span>
         </div>
-        <div class="arena-shell" data-question-type="${escapeHtml(q.type)}">
-          <div class="arena-scene" aria-label="Scarlet Arena question scene">
-            <div class="arena-wall" aria-hidden="true">
-              <div class="arena-watermark">R</div>
-              <div class="arena-pennants"><span></span><span></span><span></span><span></span><span></span></div>
-              <div class="jumbotron" aria-label="Arena scoreboard">
-                <div class="score-grid">
-                  <div class="score-cell"><span>QTR</span><strong>${index + 1}/${BADGES.length}</strong></div>
-                  <div class="score-cell"><span>PLAY</span><strong>${play}</strong></div>
-                  <div class="score-big"><span>POINTS</span><strong id="scorePoints">${fmt(points)}</strong></div>
-                  <div class="score-big"><span>GOAL</span><strong>${PASS_POINTS}</strong></div>
-                </div>
-                <div class="score-subline">${escapeHtml(q.difficulty)} &middot; ${q.points} pts &middot; Penalty -${fmt(q.points / 2)} pts</div>
-                <div class="score-progress" aria-label="Current badge progress"><span style="width:${pct}%"></span></div>
-                <div class="score-message neutral" id="arenaMessage" role="status">${q.type === "multiple-choice" ? "WALK TO A PODIUM - ENTER TO LOCK IN" : "TYPE YOUR ANSWER - ENTER TO LOCK IN"}</div>
-              </div>
-            </div>
-            <div class="question-banner">${escapeHtml(q.prompt)}</div>
-            <div class="arena-floor-zone">
-              <div class="court-floor" aria-hidden="true"></div>
-              ${answerZone}
-              <div class="knight-avatar" id="arenaAvatar" style="left:${avatarLeft}%">${knightSvg()}</div>
-            </div>
+        <div class="progress-wrap">
+          <div class="progress-label"><span>Current badge progress</span><span>${fmt(points)} / ${PASS_POINTS}</span></div>
+          <div class="progress" aria-label="Current badge progress"><span style="width:${pct}%"></span></div>
+        </div>
+        <div class="question-box">
+          <div class="question-meta">
+            <span class="pill">${escapeHtml(q.difficulty)}</span>
+            <span class="pill">${q.points} points</span>
           </div>
-          <div class="arena-controls">
-            <div class="arena-control-row">
-              <button class="icon-button" id="moveLeft" type="button" aria-label="Move left">◀</button>
-              <button class="icon-button" id="moveRight" type="button" aria-label="Move right">▶</button>
-              <button class="primary" id="submitAnswer" type="button">Lock In Answer</button>
-              <button class="secondary" id="skipQuestion" type="button">Skip Question</button>
-            </div>
-            <div class="penalty arena-hint">Controls: Arrow keys or A-D move/select podiums; Enter or Space locks in; S skips. Wrong answer penalty: -${fmt(q.points / 2)} points.</div>
-            <div class="feedback" id="feedback" role="status"></div>
+          <p class="question-prompt">${escapeHtml(q.prompt)}</p>
+          ${control}
+          <div class="actions">
+            <button class="primary" id="submitAnswer" type="button">Submit Answer</button>
+            <button class="secondary" id="skipQuestion" type="button">Skip Question</button>
+            <div class="penalty">Wrong answer penalty: -${fmt(q.points / 2)} points</div>
           </div>
+          <div class="feedback" id="feedback"></div>
         </div>`;
     }
 
@@ -2264,8 +1730,6 @@
 
     function studentAnswerText(q) {
       if (q.type === "multiple-choice") {
-        const focusedPodium = document.querySelector(".answer-podium.focused");
-        if (focusedPodium?.dataset.answer) return focusedPodium.dataset.answer;
         const selected = document.querySelector("input[name='answer']:checked");
         return selected ? selected.value : "";
       }
@@ -2310,166 +1774,31 @@
       const submit = document.getElementById("submitAnswer");
       const skip = document.getElementById("skipQuestion");
       const feedback = document.getElementById("feedback");
-      const moveLeft = document.getElementById("moveLeft");
-      const moveRight = document.getElementById("moveRight");
-      const message = document.getElementById("arenaMessage");
-      const avatar = document.getElementById("arenaAvatar");
-      const terminal = document.getElementById("answerTerminal");
-      const podiums = Array.from(document.querySelectorAll(".answer-podium"));
-      const q = currentQuestion(selectedBadge);
-      const badge = BADGES[selectedBadge];
-      let focusIndex = Math.max(0, podiums.findIndex(podium => podium.classList.contains("focused")));
-      let locked = false;
-      let walkTimer = null;
-
-      function setArenaMessage(text, tone) {
-        if (!message) return;
-        message.className = `score-message ${tone || "neutral"}`;
-        message.textContent = text;
-      }
-
-      function setAvatarLeft(left) {
-        if (!avatar) return;
-        clearTimeout(walkTimer);
-        avatar.classList.add("walking");
-        avatar.style.left = `${left}%`;
-        walkTimer = setTimeout(() => avatar.classList.remove("walking"), 440);
-      }
-
-      function setFocusedPodium(index) {
-        if (!podiums.length) return;
-        focusIndex = (index + podiums.length) % podiums.length;
-        podiums.forEach((podium, podiumIndex) => {
-          const focused = podiumIndex === focusIndex;
-          podium.classList.toggle("focused", focused);
-          podium.dataset.armed = "false";
-          podium.setAttribute("aria-pressed", String(focused));
-        });
-        setAvatarLeft(Number(podiums[focusIndex].dataset.avatarLeft || 50));
-      }
-
-      function setControlsDisabled(disabled) {
-        submit.disabled = disabled;
-        skip.disabled = disabled;
-        if (moveLeft) moveLeft.disabled = disabled || podiums.length === 0;
-        if (moveRight) moveRight.disabled = disabled || podiums.length === 0;
-        podiums.forEach(podium => { podium.disabled = disabled; });
-      }
-
-      function refreshScoreboard() {
-        const scorePoints = document.getElementById("scorePoints");
-        const scoreProgress = document.querySelector(".score-progress span");
-        const points = state.points[badge.id] || 0;
-        if (scorePoints) scorePoints.textContent = fmt(points);
-        if (scoreProgress) scoreProgress.style.width = `${Math.min(100, (points / PASS_POINTS) * 100)}%`;
-      }
-
-      function submitCurrentAnswer() {
-        if (locked) return;
+      submit.addEventListener("click", () => {
         const q = currentQuestion(selectedBadge);
         const answerText = studentAnswerText(q);
         if (!answerText) {
           feedback.className = "feedback neutral";
           feedback.textContent = "Enter or select an answer to submit.";
-          setArenaMessage("ENTER OR SELECT AN ANSWER TO LOCK IN", "neutral");
           return;
         }
-        locked = true;
-        setControlsDisabled(true);
+        submit.disabled = true;
+        skip.disabled = true;
         const correct = isCorrect(q, answerText);
         const delta = correct ? q.points : -(q.points / 2);
         recordAttempt(correct ? "Right" : "Wrong", answerText, delta);
-        refreshScoreboard();
-        if (podiums.length) {
-          podiums[focusIndex].classList.add(correct ? "correct" : "wrong");
-        }
-        if (terminal) {
-          terminal.classList.add(correct ? "correct" : "wrong");
-        }
         feedback.className = correct ? "feedback good" : "feedback bad";
         feedback.textContent = correct ? `Correct! +${q.points} points` : `Incorrect. -${fmt(q.points / 2)} points. Keep going.`;
-        const earned = state.completed[badge.id];
-        setArenaMessage(earned ? "TOUCHDOWN! BADGE EARNED!" : correct ? `CORRECT! +${q.points} PTS` : `INCORRECT. -${fmt(q.points / 2)} PTS. KEEP GOING.`, correct ? "good" : "bad");
-        feedbackTimer = setTimeout(() => renderGame(), earned ? 1700 : 1000);
-      }
-
-      function skipCurrentQuestion() {
-        if (locked) return;
-        locked = true;
-        setControlsDisabled(true);
+        feedbackTimer = setTimeout(() => renderGame(), 900);
+      });
+      skip.addEventListener("click", () => {
+        submit.disabled = true;
+        skip.disabled = true;
         recordAttempt("Skipped", "Skipped", 0);
-        refreshScoreboard();
         feedback.className = "feedback neutral";
         feedback.textContent = "Skipped. 0 points.";
-        setArenaMessage("SKIPPED. 0 PTS.", "neutral");
-        feedbackTimer = setTimeout(() => renderGame(), 1000);
-      }
-
-      submit.addEventListener("click", submitCurrentAnswer);
-      skip.addEventListener("click", skipCurrentQuestion);
-
-      if (podiums.length) {
-        setFocusedPodium(focusIndex);
-        podiums.forEach((podium, index) => {
-          podium.addEventListener("click", () => {
-            if (locked) return;
-            if (focusIndex === index && podium.dataset.armed === "true") {
-              submitCurrentAnswer();
-              return;
-            }
-            setFocusedPodium(index);
-            podium.dataset.armed = "true";
-          });
-        });
-      } else if (avatar) {
-        setAvatarLeft(16);
-      }
-
-      if (moveLeft) moveLeft.addEventListener("click", () => setFocusedPodium(focusIndex - 1));
-      if (moveRight) moveRight.addEventListener("click", () => setFocusedPodium(focusIndex + 1));
-      if (!podiums.length) {
-        if (moveLeft) moveLeft.disabled = true;
-        if (moveRight) moveRight.disabled = true;
-        document.getElementById("shortAnswer")?.focus();
-      }
-
-      arenaKeyHandler = (event) => {
-        if (locked) return;
-        const key = event.key.toLowerCase();
-        const active = document.activeElement;
-        const inShortAnswer = active && active.id === "shortAnswer";
-        if (key === "s" && !inShortAnswer) {
-          event.preventDefault();
-          skipCurrentQuestion();
-          return;
-        }
-        if (podiums.length) {
-          const letterIndex = ["a", "b", "c", "d"].indexOf(key);
-          if (letterIndex !== -1 && letterIndex < podiums.length) {
-            event.preventDefault();
-            setFocusedPodium(letterIndex);
-            return;
-          }
-          if (event.key === "ArrowLeft" || event.key === "ArrowUp") {
-            event.preventDefault();
-            setFocusedPodium(focusIndex - 1);
-            return;
-          }
-          if (event.key === "ArrowRight" || event.key === "ArrowDown") {
-            event.preventDefault();
-            setFocusedPodium(focusIndex + 1);
-            return;
-          }
-          if (event.key === "Enter" || event.key === " ") {
-            event.preventDefault();
-            submitCurrentAnswer();
-          }
-        } else if (event.key === "Enter" || (event.key === " " && !inShortAnswer)) {
-          event.preventDefault();
-          submitCurrentAnswer();
-        }
-      };
-      document.addEventListener("keydown", arenaKeyHandler);
+        feedbackTimer = setTimeout(() => renderGame(), 650);
+      });
     }
 
     function badgeSvg(name) {
@@ -2662,7 +1991,7 @@
   <!--
     README:
     Canvas deployment:
-    1. Save this standalone file as business_math_quest_VR_v7.html.
+    1. Save this standalone file as business_math_quest_randomized_points_v4.html.
     2. Upload it to Canvas Files and publish it.
     3. Add a Canvas Page and embed the published file URL in an iframe, for example:
        <iframe src="PASTE-CANVAS-FILE-URL-HERE" width="100%" height="900" style="border:0;" allowfullscreen></iframe>
