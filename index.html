@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -69,6 +69,8 @@
       top: 0;
       height: 100vh;
       overflow: auto;
+      display: flex;
+      flex-direction: column;
     }
 
     .brand {
@@ -124,6 +126,30 @@
       margin: 0;
       display: grid;
       gap: 8px;
+    }
+
+    .sidebar-reset {
+      margin-top: auto;
+      padding: 18px 4px 0;
+      border-top: 1px solid var(--gray-100);
+    }
+
+    .sidebar-reset p {
+      margin: 0 0 8px;
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.35;
+    }
+
+    .subtle-reset {
+      width: 100%;
+      min-height: 36px;
+      padding: 8px 10px;
+      color: var(--bad);
+      background: #fff;
+      border: 1px solid rgba(180, 35, 24, 0.22);
+      font-size: 12px;
+      box-shadow: none;
     }
 
     .map-button {
@@ -459,6 +485,13 @@
       line-height: 1.5;
     }
 
+    .intro-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
     .question-meta {
       display: flex;
       flex-wrap: wrap;
@@ -614,6 +647,30 @@
 
     .readme p { margin: 8px 0; }
 
+    .print-area {
+      display: none;
+    }
+
+    body.printing .shell {
+      display: none;
+    }
+
+    body.printing .print-area {
+      display: block;
+      padding: 24px;
+      color: #222;
+      background: #fff;
+    }
+
+    body.printing .print-area h1,
+    body.printing .print-area h2 {
+      margin: 0 0 12px;
+    }
+
+    body.printing .print-area p {
+      margin: 6px 0;
+    }
+
     .hidden { display: none !important; }
 
     @media (max-width: 900px) {
@@ -624,6 +681,7 @@
         border-right: 0;
         border-bottom: 1px solid var(--gray-100);
       }
+      .sidebar-reset { margin-top: 16px; }
       .badge-map {
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
@@ -647,8 +705,33 @@
       .panel { padding: 16px; }
       .question-box { padding: 15px; }
       .question-prompt { font-size: 18px; }
-      .hero-actions, .actions { display: grid; }
-      .hero-actions button, .actions button { width: 100%; }
+      .hero-actions, .actions, .intro-actions { display: grid; }
+      .hero-actions button, .actions button, .intro-actions button { width: 100%; }
+    }
+
+    @media print {
+      body {
+        background: #fff;
+      }
+
+      body.printing .print-area {
+        display: block;
+        padding: 0;
+      }
+
+      body.printing .shell {
+        display: none !important;
+      }
+
+      .print-area table {
+        min-width: 0;
+        font-size: 11px;
+      }
+
+      .print-area th,
+      .print-area td {
+        padding: 6px;
+      }
     }
   </style>
 </head>
@@ -664,6 +747,10 @@
       </div>
       <h2 class="badge-map-title">Badge Map</h2>
       <ol class="badge-map" id="badgeMap"></ol>
+      <div class="sidebar-reset">
+        <p>Need a clean restart? This clears saved progress only in this browser.</p>
+        <button class="subtle-reset" id="resetModuleSidebarBtn" type="button">Reset entire module progress</button>
+      </div>
     </aside>
 
     <main class="main">
@@ -684,7 +771,6 @@
           </div>
           <div class="hero-actions">
             <button class="primary" id="startBtn" type="button">Start Current Badge</button>
-            <button class="secondary" id="resetAllBtn" type="button">Reset All Progress</button>
           </div>
           <div class="metric-row">
             <div class="metric"><strong id="metricBadges">16</strong><span>Sequential competency badges</span></div>
@@ -699,12 +785,13 @@
 
       <section class="readme" id="readme">
         <h2>Canvas Deployment README</h2>
-        <p>Save this file as <strong>business_math_quest_randomized_points_v2.html</strong>, upload it to Canvas Files, publish it, and embed it in a Canvas Page with an iframe that points to the uploaded file URL.</p>
+        <p>Save this file as <strong>business_math_quest_randomized_points_v4.html</strong>, upload it to Canvas Files, publish it, and embed it in a Canvas Page with an iframe that points to the uploaded file URL.</p>
         <p>This game is designed as a practice/remediation tool. It saves progress in the learner's browser localStorage and does not automatically write scores to the Canvas Gradebook.</p>
         <p>For official grading, use a Canvas quiz or assignment, or implement a formal LTI/API integration separately.</p>
       </section>
     </main>
   </div>
+  <div class="print-area" id="printArea" aria-hidden="true"></div>
 
   <script>
     "use strict";
@@ -780,6 +867,93 @@
         "You will interpret business scenarios by choosing the right model, calculating accurately, and explaining what the result means for revenue, cost, profit, growth, or decision-making."
       ] }
     ];
+
+    const CONCEPT_DETAILS = {
+      "number-systems": [
+        "This badge teaches the real number system, which is the collection of numbers normally used for measurement, money, quantities, and graphing on a number line. Natural numbers are the positive counting numbers 1, 2, 3, and so on. Whole numbers include 0 plus the natural numbers. Integers include negative whole numbers, 0, and positive whole numbers.",
+        "Rational numbers can be written as a ratio of two integers, such as 3/4, -8/2, 0.25, or repeating decimals. Irrational numbers are real numbers that cannot be written exactly as a fraction of integers, such as \u221A2 or \u03C0. All rational and irrational numbers are real numbers.",
+        "The number line helps compare values: numbers farther to the right are greater, and numbers farther to the left are smaller. Absolute value means distance from zero, so it is never negative. These ideas support business contexts such as account balances, losses, gains, and quantity comparisons."
+      ],
+      operations: [
+        "This badge reviews arithmetic operations with signed numbers. Adding a negative moves left on the number line, while subtracting a number is the same as adding its opposite. For example, 7 - (-3) becomes 7 + 3.",
+        "The law of signs is used for multiplication and division: two numbers with the same sign produce a positive result, and two numbers with different signs produce a negative result. Division by zero is undefined because no number multiplied by zero can produce a nonzero amount.",
+        "You will also use real-number properties. The commutative property allows changing order in addition or multiplication, the identity property keeps a value unchanged, the inverse property combines opposites or reciprocals to make 0 or 1, and the distributive property expands multiplication across addition or subtraction."
+      ],
+      "fraction-forge": [
+        "Fractions represent parts of a whole and ratios compare quantities. A fraction such as 3/5 means 3 parts out of 5 equal parts. A ratio such as 12:18 compares two quantities and can often be simplified.",
+        "To simplify a fraction or ratio, divide both parts by the same common factor. To add or subtract fractions, use a common denominator. To multiply fractions, multiply numerators and denominators, then simplify when possible.",
+        "A reciprocal is the flipped version of a nonzero number: the reciprocal of 3/5 is 5/3. Reciprocals matter because division by a fraction is multiplication by its reciprocal. Business ratios, budget shares, conversion rates, and proportional reasoning all depend on this skill."
+      ],
+      exponent: [
+        "Exponents show repeated multiplication. For example, 2^4 means 2 multiplied by itself four times. Powers of 10 are especially important for decimals, place value, scientific notation, and large business quantities.",
+        "A nonzero number raised to the zero power equals 1. A negative exponent means reciprocal form, so 10^-2 equals 1/10^2. When multiplying powers with the same base, add exponents. When raising a power to another power, multiply exponents.",
+        "Exponent rules help simplify expressions before evaluating them. They also prepare you for exponential growth and decay models used in finance, forecasting, and compound interest."
+      ],
+      "notation-foundations": [
+        "This badge reviews notation used throughout the workshop: order of operations, absolute value, factorials, scientific notation, and subscripts. Order of operations keeps calculations consistent: grouping symbols first, then exponents, multiplication and division, and finally addition and subtraction.",
+        "Absolute value measures distance from zero. Factorial notation means a descending product, such as 5! = 5 x 4 x 3 x 2 x 1. Scientific notation writes a number as a value from 1 up to 10 times a power of 10, which is useful for very large or very small values.",
+        "Subscripts label specific items in a sequence or formula. In a revenue model such as R = p1x1 + p2x2, p1 and x1 refer to the first product price and quantity, while p2 and x2 refer to the second product."
+      ],
+      summation: [
+        "Summation notation uses the sigma symbol, \u03A3, to represent repeated addition. The expression being added is written beside sigma, and the index tells which values to substitute.",
+        "The lower limit tells where the index starts and the upper limit tells where it stops. For example, summing i from 1 to 4 means 1 + 2 + 3 + 4. If the expression is i^2, square each index value before adding.",
+        "Summation is common in business because totals are built from many parts: total sales across regions, total costs across departments, total transactions across days, or total values across products."
+      ],
+      "polynomial-builder": [
+        "A monomial is a single algebraic term, such as 7x^3 or 5. A polynomial is a sum or difference of monomial terms with nonnegative whole-number exponents, such as 4x^2 + 3x - 8.",
+        "The degree of a polynomial is the highest exponent in one variable, or the sum of exponents in a multivariable monomial. Like terms have the same variable part and can be combined by adding or subtracting coefficients.",
+        "FOIL is a method for multiplying two binomials: first, outer, inner, last. Factoring reverses multiplication by rewriting a polynomial as a product. Factoring is especially useful for solving equations and understanding roots."
+      ],
+      "algebra-mastery": [
+        "Algebra focuses on solving for unknown values while preserving equality. Whatever operation is applied to one side of an equation must also be applied to the other side.",
+        "Inverse operations undo each other: addition and subtraction, multiplication and division, powers and roots. Solving usually means simplifying both sides, moving variable terms together, moving constants together, and isolating the variable.",
+        "In business math, algebra is used to solve for quantities, prices, costs, revenues, and break-even points. For example, if revenue equals cost, solving the equation tells the output level where the business breaks even."
+      ],
+      "function-machine": [
+        "A function is a rule that assigns each input exactly one output. In f(x), x is the input or independent variable, and f(x) is the output or dependent variable.",
+        "Functions can use one variable, such as C(x) = 200 + 8x for cost, or multiple variables, such as R = p1x1 + p2x2 for two-product revenue. Substituting values into a function lets you evaluate a business situation.",
+        "Function notation helps organize relationships among price, quantity, revenue, cost, demand, and profit. It also prepares you to read tables, graphs, and formulas as different representations of the same relationship."
+      ],
+      "graph-navigator": [
+        "Graphing connects algebraic rules to visual patterns. An ordered pair is written (x, y), where x is the horizontal coordinate and y is the vertical coordinate. The origin is (0, 0).",
+        "The coordinate plane has four quadrants. Quadrant I has positive x and positive y, Quadrant II has negative x and positive y, Quadrant III has negative x and negative y, and Quadrant IV has positive x and negative y.",
+        "A table of input-output values can be graphed by plotting each row as a point. A graph represents a function if each x-value has exactly one y-value, which is the idea behind the vertical line test."
+      ],
+      "linear-functions": [
+        "A linear function has a constant rate of change. Its graph is a straight line. In slope-intercept form y = mx + b, m is the slope and b is the y-intercept.",
+        "Slope is change in y divided by change in x. It tells how much the output changes when the input increases by one unit. Parallel nonvertical lines have the same slope.",
+        "In business, slope can represent variable cost per unit, revenue per unit, price change per unit, or contribution margin. The intercept often represents a starting value such as fixed cost or an initial balance."
+      ],
+      quadratic: [
+        "A quadratic function has degree 2 and graphs as a parabola. If the leading coefficient is positive, the parabola opens upward. If it is negative, the parabola opens downward.",
+        "The vertex is the turning point of the parabola. It represents a minimum for an upward-opening parabola and a maximum for a downward-opening parabola. The axis of symmetry is the vertical line through the vertex.",
+        "Solving a quadratic equation means finding x-values that make the output equal zero. These solutions are also called roots or x-intercepts. Factoring, square roots, and vertex form are common tools."
+      ],
+      "curve-analyst": [
+        "This badge compares nonlinear models, including polynomial and exponential functions. Higher-degree polynomials can curve and change direction more than linear functions.",
+        "Exponential functions use a variable in the exponent. A model such as A(t)=P(1+r)^t represents repeated multiplication by a growth factor. If the base is greater than 1, the model shows growth. If the base is between 0 and 1, it shows decay.",
+        "These models help describe business situations such as customer growth, depreciation, compound growth, demand curves, and long-run trends that are not well represented by a straight line."
+      ],
+      "systems-solver": [
+        "A system of equations asks for values that satisfy multiple equations at the same time. Graphically, the solution is the intersection point of the graphs.",
+        "Substitution solves one equation for a variable and replaces that variable in another equation. Elimination adds or subtracts equations to cancel one variable. Both methods should produce the same solution when a unique solution exists.",
+        "Systems are useful in business for break-even analysis, supply and demand equilibrium, comparing cost plans, and finding where two models agree. Nonlinear systems can involve intersections between lines, parabolas, or other curves."
+      ],
+      "finance-applications": [
+        "This badge applies algebra and functions to finance. Simple interest uses I = Prt, where P is principal, r is the interest rate, and t is time. It does not earn interest on prior interest.",
+        "Compound interest uses A = P(1+r)^t because each period multiplies the balance by a growth factor. Present value works in reverse by discounting future money back to what it is worth today.",
+        "You will also interpret revenue, cost, profit, break-even, supply, and demand. Revenue is often price times quantity, cost may include fixed and variable parts, and profit is revenue minus cost."
+      ],
+      "business-math-analyst": [
+        "The final badge combines the full workshop: number systems, operations, algebra, functions, graphing, systems of equations, and finance applications.",
+        "You will need to select the right model, substitute values accurately, solve equations, and interpret the result in context. The goal is not only calculation but business meaning.",
+        "A strong business math analyst can explain whether a number represents a price, quantity, cost, revenue, profit, interest amount, present value, growth rate, or break-even point."
+      ]
+    };
+
+    BADGES.forEach(badge => {
+      if (CONCEPT_DETAILS[badge.id]) badge.concepts = CONCEPT_DETAILS[badge.id];
+    });
 
     function escapeHtml(value) {
       return String(value)
@@ -1324,6 +1498,7 @@
         currentBadge: 0,
         points: Object.fromEntries(BADGES.map(b => [b.id, 0])),
         completed: Object.fromEntries(BADGES.map(b => [b.id, false])),
+        introSeen: Object.fromEntries(BADGES.map(b => [b.id, false])),
         queues: Object.fromEntries(BADGES.map(b => [b.id, []])),
         indexes: Object.fromEntries(BADGES.map(b => [b.id, 0])),
         history: Object.fromEntries(BADGES.map(b => [b.id, []]))
@@ -1339,6 +1514,7 @@
           currentBadge: Math.max(0, Math.min(BADGES.length - 1, parsed.currentBadge || 0)),
           points: { ...base.points, ...(parsed.points || {}) },
           completed: { ...base.completed, ...(parsed.completed || {}) },
+          introSeen: { ...base.introSeen, ...(parsed.introSeen || {}) },
           queues: { ...base.queues, ...(parsed.queues || {}) },
           indexes: { ...base.indexes, ...(parsed.indexes || {}) },
           history: { ...base.history, ...(parsed.history || {}) }
@@ -1438,6 +1614,9 @@
       if (state.completed[badge.id]) {
         panel.innerHTML = completionTemplate(selectedBadge);
         wireCompletionButtons();
+      } else if (!state.introSeen[badge.id]) {
+        panel.innerHTML = introTemplate(selectedBadge);
+        wireIntroButtons();
       } else {
         panel.innerHTML = questionTemplate(selectedBadge, currentQuestion(selectedBadge));
         wireQuestionForm();
@@ -1447,6 +1626,37 @@
     function conceptCardTemplate(badge) {
       const conceptCopy = (badge.concepts || []).map(text => `<p>${escapeHtml(text)}</p>`).join("");
       return `<div class="concept-card"><h3>Concepts in this badge</h3>${conceptCopy}</div>`;
+    }
+
+    function introTemplate(index) {
+      const badge = BADGES[index];
+      return `
+        <div class="topline">
+          <div>
+            <span class="badge-chip">Checkpoint ${index + 1} of ${BADGES.length}</span>
+            <h2>${escapeHtml(badge.name)}</h2>
+          </div>
+          <span class="badge-chip">Intro</span>
+        </div>
+        ${conceptCardTemplate(badge)}
+        <div class="intro-actions">
+          <button class="primary" id="beginBadgeQuestions" type="button">Begin Badge Questions</button>
+          <button class="secondary" id="returnMissionHome" type="button">Return to Mission Home</button>
+        </div>`;
+    }
+
+    function wireIntroButtons() {
+      const badge = BADGES[selectedBadge];
+      document.getElementById("beginBadgeQuestions").addEventListener("click", () => {
+        state.introSeen[badge.id] = true;
+        ensureQueue(selectedBadge, false);
+        saveState();
+        renderGame();
+      });
+      document.getElementById("returnMissionHome").addEventListener("click", () => {
+        setView(false);
+        renderBadgeMap();
+      });
     }
 
     function questionTemplate(index, q) {
@@ -1468,7 +1678,6 @@
           <div class="progress-label"><span>Current badge progress</span><span>${fmt(points)} / ${PASS_POINTS}</span></div>
           <div class="progress" aria-label="Current badge progress"><span style="width:${pct}%"></span></div>
         </div>
-        ${conceptCardTemplate(badge)}
         <div class="question-box">
           <div class="question-meta">
             <span class="pill">${escapeHtml(q.difficulty)}</span>
@@ -1479,7 +1688,7 @@
           <div class="actions">
             <button class="primary" id="submitAnswer" type="button">Submit Answer</button>
             <button class="secondary" id="skipQuestion" type="button">Skip Question</button>
-            <div class="penalty">Wrong answer penalty: -50% of this question's points</div>
+            <div class="penalty">Wrong answer penalty: -${fmt(q.points / 2)} points</div>
           </div>
           <div class="feedback" id="feedback"></div>
         </div>`;
@@ -1665,9 +1874,9 @@
             <h2>${escapeHtml(badge.name)} Report</h2>
           </div>
         </div>
-        ${conceptCardTemplate(badge)}
         <div class="actions">
           ${nextButton}
+          <button class="text-button" id="printReport" type="button">Print Badge Report</button>
           <button class="secondary" id="retryBadge" type="button">Retry Badge</button>
         </div>
         <div class="report-wrap">
@@ -1684,13 +1893,16 @@
       const next = document.getElementById("continueNext");
       const home = document.getElementById("returnLanding");
       const retry = document.getElementById("retryBadge");
+      const print = document.getElementById("printReport");
       if (next) next.addEventListener("click", () => openBadge(selectedBadge + 1, true));
       if (home) home.addEventListener("click", () => { setView(false); renderBadgeMap(); });
+      if (print) print.addEventListener("click", () => printBadgeReport(selectedBadge));
       retry.addEventListener("click", () => {
         const badge = BADGES[selectedBadge];
         if (!confirm(`Retry ${badge.name}? This clears this badge attempt and hides its report until earned again.`)) return;
         clearTimeout(feedbackTimer);
         state.completed[badge.id] = false;
+        state.introSeen[badge.id] = false;
         state.points[badge.id] = 0;
         state.history[badge.id] = [];
         state.queues[badge.id] = [];
@@ -1703,19 +1915,61 @@
       });
     }
 
+    function printBadgeReport(index) {
+      const badge = BADGES[index];
+      const history = state.history[badge.id] || [];
+      const rows = history.map(item => {
+        const statusClass = item.status === "Right" ? "status-right" : item.status === "Wrong" ? "status-wrong" : "status-skipped";
+        return `<tr>
+          <td>${item.number}</td>
+          <td>${escapeHtml(item.prompt)}</td>
+          <td>${escapeHtml(item.studentAnswer)}</td>
+          <td class="${statusClass}">${escapeHtml(item.status)}</td>
+          <td>${escapeHtml(item.correctAnswer)}</td>
+          <td>${escapeHtml(item.explanation)}</td>
+          <td>${escapeHtml(item.difficulty)}</td>
+          <td>${item.points}</td>
+          <td>${fmt(item.delta)}</td>
+        </tr>`;
+      }).join("");
+      const printArea = document.getElementById("printArea");
+      printArea.innerHTML = `
+        <h1>Road to Success: Business Math Quest</h1>
+        <h2>${escapeHtml(badge.name)} Completion Report</h2>
+        <p><strong>Badge points:</strong> ${fmt(state.points[badge.id] || 0)} / ${PASS_POINTS}</p>
+        <p><strong>Report generated:</strong> ${new Date().toLocaleString()}</p>
+        <table>
+          <thead>
+            <tr><th>#</th><th>Question</th><th>Student Answer</th><th>Status</th><th>Correct Answer</th><th>Explanation</th><th>Difficulty</th><th>Points</th><th>Point Delta</th></tr>
+          </thead>
+          <tbody>${rows}</tbody>
+        </table>`;
+      document.body.classList.add("printing");
+      const cleanUpPrint = () => {
+        document.body.classList.remove("printing");
+        printArea.innerHTML = "";
+        window.removeEventListener("afterprint", cleanUpPrint);
+      };
+      window.addEventListener("afterprint", cleanUpPrint);
+      window.print();
+      setTimeout(cleanUpPrint, 1200);
+    }
+
     document.getElementById("startBtn").addEventListener("click", () => {
       selectedBadge = firstOpenBadge();
       openBadge(selectedBadge, false);
     });
 
-    document.getElementById("resetAllBtn").addEventListener("click", () => {
-      if (!confirm("Reset all saved Business Math Quest progress in this browser?")) return;
+    function resetAllProgress() {
+      if (!confirm("Reset all saved Business Math Quest progress in this browser? This will permanently clear every badge attempt, earned badge, report, question order, and current score for this module.")) return;
       state = freshState();
       selectedBadge = 0;
       saveState();
       renderBadgeMap();
       setView(false);
-    });
+    }
+
+    document.getElementById("resetModuleSidebarBtn").addEventListener("click", resetAllProgress);
 
     state = loadState();
     selectedBadge = firstOpenBadge();
@@ -1725,7 +1979,7 @@
   <!--
     README:
     Canvas deployment:
-    1. Save this standalone file as business_math_quest_randomized_points_v2.html.
+    1. Save this standalone file as business_math_quest_randomized_points_v4.html.
     2. Upload it to Canvas Files and publish it.
     3. Add a Canvas Page and embed the published file URL in an iframe, for example:
        <iframe src="PASTE-CANVAS-FILE-URL-HERE" width="100%" height="900" style="border:0;" allowfullscreen></iframe>
