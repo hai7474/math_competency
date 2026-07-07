@@ -1774,7 +1774,7 @@
       const submit = document.getElementById("submitAnswer");
       const skip = document.getElementById("skipQuestion");
       const feedback = document.getElementById("feedback");
-      submit.addEventListener("click", () => {
+      const submitCurrentAnswer = () => {
         const q = currentQuestion(selectedBadge);
         const answerText = studentAnswerText(q);
         if (!answerText) {
@@ -1790,6 +1790,12 @@
         feedback.className = correct ? "feedback good" : "feedback bad";
         feedback.textContent = correct ? `Correct! +${q.points} points` : `Incorrect. -${fmt(q.points / 2)} points. Keep going.`;
         feedbackTimer = setTimeout(() => renderGame(), 900);
+      };
+      submit.addEventListener("click", submitCurrentAnswer);
+      document.getElementById("gamePanel").addEventListener("keydown", event => {
+        if (event.key !== "Enter" || submit.disabled) return;
+        event.preventDefault();
+        submitCurrentAnswer();
       });
       skip.addEventListener("click", () => {
         submit.disabled = true;
